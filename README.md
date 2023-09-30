@@ -2,6 +2,7 @@
 
 この資料は JAWS FESTA 2023 Kyushu で行われるハンズオンために書かれました。
 イベントページは[こちら](https://jft2023.jaws-ug.jp/)。
+手を動かしながら DynamoDB の基本を学ぶことができます。
 
 # 自己紹介
 
@@ -57,7 +58,7 @@ DynamoDB の料金の特徴は以下 3 つの通り
 
 ## 1-5. 公式ドキュメント[5]
 
-安心安全公式ドキュメントのリンクはこちら ↓
+安心安全 AWS 公式ドキュメントのリンクはこちら ↓
 
 - https://docs.aws.amazon.com/ja_jp/dynamodb/
 
@@ -66,6 +67,8 @@ DynamoDB の料金の特徴は以下 3 つの通り
 - [「DynamoDB の使用開始」](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GettingStartedDynamoDB.html)
 - [「DynamoDB へのアクセス」](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/AccessingDynamoDB.html)
 - [「Programming with DynamoDB」](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Programming.html)
+
+今回のハンズオンは公式ドキュメントの内容を元に作成しています。
 
 ## 1-6. その他のリソース[5]
 
@@ -135,10 +138,227 @@ DynamoDB の料金の特徴は以下 3 つの通り
 
 テーブルを作成できました！🎉
 
-## 2-4. テーブルの更新[15]
+## 2-4. テーブルの概要を知る[15]
+
+テーブルを作成するとテーブル一覧に作成したテーブルが表示されます。
+
+![Alt text](image-2.png)
+
+テーブルには以下のような情報が表示されています。
+
+- テーブル名
+- 状態
+- パーティションキー
+- ソートキー
+- インデックス
+- 削除保護
+- 読み取りキャパシティモード
+- 書き込みキャパシティモード
+- テーブルクラス
+
+それぞれの項目について説明していきます。
+
+### 2-4-1. テーブル名[1]
+
+テーブル名はテーブルを作成するときに指定した名前が表示されます。
+
+- 命名規則あり
+  - すべての名前は UTF-8 を使用してエンコードする必要があり
+  - 大文字と小文字が区別される
+  - テーブル名とインデックス名の長さは 3 ～ 255 文字
+  - 次の文字が使える
+    - `a-z`
+    - `A-Z`
+    - `0-9`
+    - `_` (下線)
+    - `-` (ダッシュ)
+    - `.`（ドット）
+- 現在の AWS アカウントとリージョン内で一意である必要がある
+  - 例 1）米国東部 (バージニア北部) に People テーブルを作成した場合、米国東部 (バージニア北部) に追加で同名の People テーブルを作成することはできない
+  - 例 2）米国東部 (バージニア北部) に People テーブルを作成し、欧州 (アイルランド) に別の People テーブルを作成できるが、これらの 2 つのテーブルは全くの別物である
+
+詳細については、AWS 公式ドキュメント「[Amazon DynamoDB でサポートされるデータ型と命名規則](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html)」を参照してください。
+
+### 2-4-2. 状態[1]
+
+現在のテーブルの状態について知ることができます。AWS SDK for Java V2 では以下のような状態が定義されています。（一部抜粋）
+
+- ACTIVE
+- ARCHIVED
+- ARCHIVING
+- CREATING
+- DELETING
+- UPDATING
+
+### 2-4-3. パーティションキー[1]
+
+パーティションキーはテーブルのデータを分散させるために使用されるキーです。
+
+- DynamoDB はデータをパーティションに保存する
+- パーティションは、AWS リージョン内の複数のアベイラビリティーゾーン間で自動的にレプリケート（複製）される
+- パーティション管理は DynamoDB によって完全に処理される
+- パーティションを自身が管理する必要はない
+
+### 2-4-4. ソートキー[1]
+
+同じパーティションキー値を持つすべての項目をソートするためのキーです。
+
+- 同じパーティションキーを持つ他の項目とソートキーの昇順で項目が保存される
+- テーブルから項目を読み込むには、パーティションのキーバリューとソートキーのキーバリューを指定する必要がある
+- 目的の項目に同じパーティションキーバリューがある場合、単一のオペレーション (`Query`) でテーブルから複数の項目を読み取ることができる
+- パーティションキーとソートキーが存在するテーブルでは、同じパーティションのキーバリューが複数の項目に割り当てられることがある
+- ソートキー値は複数の項目で異なる必要がある
+
+### 2-4-5. インデックス[1]
+
+テーブルにプロビジョニングされたインデックスの数を見ることができます。
+
+### 2-4-6. 削除保護[1]
+
+削除保護はテーブルの削除を防ぐために使用される機能です。
+
+- 削除保護を有効にすると、その間はテーブルを削除することができなくなる
+
+### 2-4-7. 読み取り/書き込みキャパシティモード[1]
+
+読み取りおよび書き込みスループットの課金方法と容量の管理方法を制御します。
+
+- 2 つのキャパシティモードがある
+  - オンデマンドモード
+  - プロビジョニングモード (デフォルト、無料利用枠の対象)
+- テーブルを作成するときに設定できる
+- 後から変更することも可能
+- セカンダリインデックスは、ベーステーブルのキャパシティモードを継承する
+  - 詳細：AWS 公式ドキュメント「[読み込み/書き込みキャパシティモードの変更時の考慮事項](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/switching.capacitymode.html)」
+- 参考：AWS 公式ドキュメント「[読み取り/書き込みキャパシティモード](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html)」
+
+#### 2-4-7-1. オンデマンドモード
+
+オンデマンドモードの特徴は以下の通りです。
+
+- キャパシティプランなしで 1 秒あたりに数千ものリクエストを処理できる
+- 読み取りおよび書き込みリクエストごとの支払い料金が用意されている
+- 使用した分だけ課金される
+
+オンデマンドモードは以下のような場合に適しています。
+
+- 不明なワークロードを含む新しいテーブルを作成する場合
+- アプリケーションのトラフィックが予測不可能な場合
+- わかりやすい従量課金制の支払いを希望する場合
+
+- 参考：AWS 公式ドキュメント「[読み取り/書き込みキャパシティモード](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html)」
+
+#### 2-4-7-2. プロビジョニングモード
+
+プロビジョニングモードの特徴は以下の通りです。
+
+- アプリケーションに必要な 1 秒あたりの読み込みと書き込みの回数を事前に指定する
+- Auto Scaling を使用すると、トラフィックの変更に応じて、テーブルのプロビジョンドキャパシティーを自動的に調整できる
+
+プロビジョニングモードは以下のような場合に適しています。
+
+- アプリケーションのトラフィックが予測可能な場合
+- トラフィックが一定した、または徐々に増加するアプリケーションを実行する場合
+- キャパシティーの要件を予測してコストを管理できる場合
+
+- 参考：AWS 公式ドキュメント「[読み取り/書き込みキャパシティモード](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html)」
+
+### 2-4-8. テーブルクラス[1]
+
+コストの最適化に役立つように設計された 2 つのテーブルクラスが用意されています。
+
+- DynamoDB 標準テーブルクラス（デフォルト）
+  - 大半のワークロードで推奨
+- DynamoDB Standard-Infrequent Access (DynamoDB 標準-IA) テーブルクラス
+  - ストレージが主要なコストとなるテーブル用に最適化
+  - アクセス頻度の低いデータを格納するテーブル
+    - アプリケーションログ
+    - 古いソーシャルメディアの投稿
+    - e コマースの注文履歴
+    - 過去のゲーム実績
+
+料金の詳細については、「[Amazon DynamoDB の料金表](http://aws.amazon.com/dynamodb/pricing/on-demand/)」を参照してください。
+
+参考：AWS 公式ドキュメント「[テーブルクラス](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.TableClasses.html)」
 
 ## 2-5. 項目の探索[15]
 
+### 2-5-1. 項目の追加[5]
+
+<TBD>
+
+```
+- 属性について
+  - 名前
+  - 値
+  - タイプ
+```
+
+参考：https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/getting-started-step-2.html
+
+### 2-5-2. 項目の検索[5]
+
+＜ TBD ＞
+
+参考：https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/getting-started-step-3.html
+https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQL.ReadData.html
+https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQL.ReadData.SingleItem.html
+https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQL.ReadData.Query.html
+https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQL.ReadData.Scan.html
+
+#### スキャン
+
+#### クエリ
+
+#### フィルタ
+
+### 2-5-3. 項目の操作[5]
+
+#### 編集
+
+#### 複製
+
+#### 削除
+
+#### CSV ダウンロード
+
+- 選択した項目をダウンロード
+- 検索した結果をダウンロード
+
 ## 2-6. お片付け[15]
 
-# 3. まとめ[5]
+# 3. 終わりに[5]
+
+---
+
+## その他用語集
+
+### 属性名
+
+- 1 文字以上の長さ、64 KB 未満のサイズにする必要あり
+- できるだけ短くすることがベストプラクティス
+- 属性名がストレージとスループットの使用量の測定に含まれるため、属性名を短くすることで消費される読み取りリクエストユニットを減らすことができる
+- 以下は例外で、これらの属性名は 255 文字以下である必要がある
+  - セカンダリインデックスのパーティションキー名
+  - セカンダリインデックスのソートキー名
+  - ユーザー指定の射影された属性の名前 (ローカルセカンダリインデックスにのみ適用)
+- 参考：https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html
+
+### 予約語と特殊文字
+
+DynamoDB には予約語と特殊文字があります。
+
+- 予約語の例： `INSERT` や `DELETE`
+  - 詳細は：「[DynamoDB の予約語](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/ReservedWords.html)」
+- 特殊文字の例： `#` （ハッシュ）や `:` （コロン）
+- 命名目的でこれらの予約語と特殊文字を使用することができるが、非推奨
+  - 式でこれらの名前を使用するたびに、プレースホルダー変数を定義する必要がある
+  - 詳細は：「[DynamoDB の式の属性名](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html)」
+  - ドキュメントによっては予約語を「使用しないでください」と書かれている
+
+### DynamoDB テーブルのデータモデリング
+
+設計の話
+<TBD>
+
+https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/data-modeling.html
