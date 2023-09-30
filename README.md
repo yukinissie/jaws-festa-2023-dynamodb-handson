@@ -2,7 +2,7 @@
 
 この資料は JAWS FESTA 2023 Kyushu で行われるハンズオンために書かれました。
 イベントページは[こちら](https://jft2023.jaws-ug.jp/)。
-手を動かしながら DynamoDB の基本を学ぶことができます。
+手を動かしながら Amazon DynamoDB の基本を学ぶことができます。
 
 # 自己紹介
 
@@ -21,40 +21,79 @@
   - Facebook：https://www.facebook.com/yukinissie
   - GitHub：https://github.com/yukinissie
 
+---
+
 @[TOC](アジェンダ)
 
-# 1. DynamoDB の基本[30]
+# 1. 座学編[30]
 
-## 1-1. 仕組み[5]
+## 1-1. Amazon DynamoDB の基本情報[5]
 
-> DynamoDB は、一貫して 1 桁ミリ秒レベルのレイテンシーを必要とするあらゆる規模のアプリケーションに対応した、高速かつ柔軟な NoSQL データベースサービスです。DynamoDB はその柔軟性のあるデータモデルと信頼性の高いパフォーマンスにより、モバイル、ウェブ、ゲーム、広告技術、IoT といったアプリケーションに大いに活用できます。
->
-> 引用：AWS コンソールのダッシュボード
+### 1-1-1. 概要[5]
 
-###
+Amazon DynamoDB(以下、DynamoDB) は以下を提供するフルマネージドでサーバーレスの key-value NoSQL データベースサービスです。
 
-## 1-2. 利点と機能[5]
+- 高速で予測可能なパフォーマンス
+- シームレスなスケーラビリティ
 
-###
+### 1-1-2. DynamoDB の利点[5]
 
-## 1-3. ユースケース[5]
+以下のような利点があります。
 
-以下のような場所で使われている
+- 分散データベースの運用やスケーリングにかかる管理負荷を軽減
+- ハードウェアのプロビジョニング、セットアップと設定、レプリケーション、ソフトウェアのパッチ適用、クラスタのスケーリングなどを心配する必要がなくなる
 
-- アドテック
+### 1-1-3. DynamoDB の特徴[5]
+
+DynamoDB では以下のような特徴があります。
+
+- 任意の量のデータを格納および取得し、任意のレベルのリクエストトラフィックに対応できるデータベーステーブルの作成
+- ダウンタイムやパフォーマンスの低下なしに、テーブルのスループット容量をスケールアップまたはスケールダウン
+- AWS Management Console を使用した、リソースの使用率とパフォーマンスメトリクスの監視
+- 他にもたくさんの特徴があります
+  - 詳細：AWS 公式サイト「[Amazon DynamoDB の特徴](https://aws.amazon.com/jp/dynamodb/features/)」
+
+### 1-1-4. DynamoDB の機能[5]
+
+DynamoDB では以下のような機能が提供されています。
+
+- オンデマンドバックアップ機能
+  - 完全なバックアップを作成できる
+  - 詳細：AWS 公式ドキュメント「[DynamoDB のオンデマンドバックアップおよび復元の使用](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/BackupRestore.html)」
+- ポイントインタイムリカバリ機能
+  - リアルタイムでバックアップし任意の時点にテーブルを復元できる
+  - 詳細：AWS 公式ドキュメント「[ポイントインタイムリカバリ: 仕組み](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/PointInTimeRecovery_Howitworks.html)」
+- 期限切れの項目をテーブルから自動的に削除する機能
+  - 詳細：AWS 公式ドキュメント 「[DynamoDB の有効期限 (TTL) を使用して項目を期限切れにする](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/TTL.html)」
+
+### 1-1-5. DynamoDB の高い可用性と耐久性[5]
+
+- 一貫性のある高速なパフォーマンスを維持しながら、スループットとストレージ要件を処理するために十分な数のサーバーにテーブルのデータとトラフィックを自動的に分散する
+- すべてのデータはソリッドステートディスク(SSD)に保存され、AWS リージョン内の複数の [アベイラビリティーゾーン（AZ）](https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/using-regions-availability-zones.html) に自動的にレプリケートされ、ビルトインの高可用性とデータの耐久性を提供する
+- グローバルテーブルを使用すると、AWS リージョン間で DynamoDB のテーブルを同期させることが可能
+  - 詳細：AWS 公式ドキュメント「[グローバルテーブル – DynamoDB の複数リージョンレプリケーション](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/GlobalTables.html)」
+
+## 1-2. ユースケース[5]
+
+以下のような１秒間に数百万回のリクエストを処理する必要がある業界で使われています。
+
+- アドテック(広告)
 - 小売り
 - ソフトウェアとインターネット
 - ゲーム
 - メディアとエンターテイメント
 - 銀行と金融
 
+詳細は AWS 公式サイト「[Amazon DynamoDB](https://aws.amazon.com/jp/dynamodb/)」のユースケースセクションをご覧ください。
+
 ## 1-4. 料金 [5]
 
-DynamoDB の料金の特徴は以下 3 つの通り
+DynamoDB の課金対象は大きく分けて以下の 2 つです。
 
-- データの読み取り、書き込み、保存リクエストに対して料金が請求がされる
-- 利用するキャパシティーモードによって料金体系が異なる
-- 有効にしたオプション機能の料金も追加で請求される
+1. DynamoDB テーブル内のデータの読み取り、書き込み、保存
+2. 有効化したオプション機能の使用
+
+さらに 1. には「オンデマンド」と「プロビジョニング」という 2 種類のキャパシティモードがあり、それぞれのモードにおけるテーブルの読み書き処理について別個の請求オプションがあります。
 
 ## 1-5. 公式ドキュメント[5]
 
@@ -71,6 +110,14 @@ DynamoDB の料金の特徴は以下 3 つの通り
 今回のハンズオンは公式ドキュメントの内容を元に作成しています。
 
 ## 1-6. その他のリソース[5]
+
+- [公式チュートリアル](https://aws.amazon.com/jp/dynamodb/getting-started/?nc1=h_ls)
+- [API リファレンス](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/APIReference/Welcome.html)
+  - AWS CLI もしくは AWS SDK から DynamoDB を操作する際に参照する
+- [よくある質問](https://aws.amazon.com/jp/dynamodb/faqs/)
+- [フォーラム](https://repost.aws/tags/TAljkKQ0MDQJCjDdxSeDQBJw?forumID=131)
+  - DynamoDB に関する質問や issue（技術的課題）を投稿することができる
+- [公式ブログ](https://aws.amazon.com/jp/blogs/database/tag/dynamodb/)
 
 # 2. 実際に触れてみよう[60]
 
@@ -232,15 +279,15 @@ DynamoDB の料金の特徴は以下 3 つの通り
   - 詳細：AWS 公式ドキュメント「[読み込み/書き込みキャパシティモードの変更時の考慮事項](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/switching.capacitymode.html)」
 - 参考：AWS 公式ドキュメント「[読み取り/書き込みキャパシティモード](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html)」
 
-#### 2-4-7-1. オンデマンドモード
+#### 2-4-7-1. オンデマンドキャパシティモード
 
-オンデマンドモードの特徴は以下の通りです。
+オンデマンドキャパシティモードの特徴は以下の通りです。
 
 - キャパシティプランなしで 1 秒あたりに数千ものリクエストを処理できる
 - 読み取りおよび書き込みリクエストごとの支払い料金が用意されている
 - 使用した分だけ課金される
 
-オンデマンドモードは以下のような場合に適しています。
+オンデマンドキャパシティモードは以下のような場合に適しています。
 
 - 不明なワークロードを含む新しいテーブルを作成する場合
 - アプリケーションのトラフィックが予測不可能な場合
@@ -248,14 +295,14 @@ DynamoDB の料金の特徴は以下 3 つの通り
 
 - 参考：AWS 公式ドキュメント「[読み取り/書き込みキャパシティモード](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html)」
 
-#### 2-4-7-2. プロビジョニングモード
+#### 2-4-7-2. プロビジョニングキャパシティモード
 
-プロビジョニングモードの特徴は以下の通りです。
+プロビジョニングキャパシティモードの特徴は以下の通りです。
 
 - アプリケーションに必要な 1 秒あたりの読み込みと書き込みの回数を事前に指定する
 - Auto Scaling を使用すると、トラフィックの変更に応じて、テーブルのプロビジョンドキャパシティーを自動的に調整できる
 
-プロビジョニングモードは以下のような場合に適しています。
+プロビジョニングキャパシティモードは以下のような場合に適しています。
 
 - アプリケーションのトラフィックが予測可能な場合
 - トラフィックが一定した、または徐々に増加するアプリケーションを実行する場合
