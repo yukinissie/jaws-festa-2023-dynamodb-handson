@@ -445,9 +445,9 @@ https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQ
 
 ---
 
-## その他用語集
+# その他用語集
 
-### 属性名
+## 属性名
 
 - 1 文字以上の長さ、64 KB 未満のサイズにする必要あり
 - できるだけ短くすることがベストプラクティス
@@ -458,7 +458,7 @@ https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQ
   - ユーザー指定の射影された属性の名前 (ローカルセカンダリインデックスにのみ適用)
 - 参考：https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html
 
-### 予約語と特殊文字
+## 予約語と特殊文字
 
 DynamoDB には予約語と特殊文字があります。
 
@@ -470,7 +470,7 @@ DynamoDB には予約語と特殊文字があります。
   - 詳細は：「[DynamoDB の式の属性名](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html)」
   - ドキュメントによっては予約語を「使用しないでください」と書かれている
 
-### DynamoDB テーブルのデータモデリング
+## DynamoDB テーブルのデータモデリング
 
 設計の話
 <TBD>
