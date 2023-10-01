@@ -1,8 +1,12 @@
 # はじめに
 
 この資料は JAWS FESTA 2023 Kyushu で行われるハンズオンために書かれました。
+
 イベントページは[こちら](https://jft2023.jaws-ug.jp/)。
+
 手を動かしながら Amazon DynamoDB の基本を学ぶことができます。
+
+この資料のマスタは[こちら](https://github.com/yukinissie/jaws-festa-2023-dynamodb-handson/blob/main/README.md)にあります。
 
 # 自己紹介
 
