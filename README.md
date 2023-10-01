@@ -10,17 +10,14 @@ TODO：最後に画像を配置する。また、適切な見出し番号と所�
 
 手を動かしながら Amazon DynamoDB の基本を学ぶことができます。
 
-この資料のマスタは[こちら](https://github.com/yukinissie/jaws-festa-2023-dynamodb-handson/blob/main/README.md)にあります。
+この資料のマスタは[GitHub](https://github.com/yukinissie/jaws-festa-2023-dynamodb-handson/blob/main/README.md)にあります。
 
 # 自己紹介
 
-- 登壇者名
-  - ニッシー ☆ === 西勇樹（Nishi Yuki）
-- 所属
-  - 株式会社ユーザベース
-  - ソーシャル経済メディア「NewsPicks」の Web 版を作っています。
-- 登壇者概要
-  - 会場である福岡工業大学を今年卒業しました。学生時代は月 1 でハッカソンに行きまくり、つど AWS などのクラウドサービスを利用して爆速でリリースサイクルを回せるような基盤づくりの実装を楽しんでいました。
+- ニッシー ☆ === 西勇樹（Nishi Yuki）
+- 株式会社ユーザベースに今年新卒入社しました。
+- ソーシャル経済メディア「NewsPicks」の Web 版を作っています。
+- 日本酒が好きです。
 
 ---
 
@@ -31,7 +28,7 @@ TODO：最後に画像を配置する。また、適切な見出し番号と所�
 
 ---
 
-@[TOC](アジェンダ)
+@[TOC](目次)
 
 # 1. 座学編[30]
 
