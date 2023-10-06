@@ -580,27 +580,128 @@ JSON ビューにした際に「DynamoDB JSON の表示」トグルをクリッ�
 
 ## 2-5-2. 項目の検索[5]
 
-＜ TBD ＞
-
-参考：https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/getting-started-step-3.html
-https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQL.ReadData.html
-https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQL.ReadData.SingleItem.html
-https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQL.ReadData.Query.html
-https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQL.ReadData.Scan.html
+様々な方法で項目を検索してみましょう。
 
 ### スキャン
 
+全ての項目のデータ属性を返します。1 回のスキャンで最大 1 MB のデータを返すことができます。
+
+実は項目作成後に見た「返された項目」はの内容はスキャンの結果です。
+
+![Alt text](image-17.png)
+
 ### クエリ
+
+テーブルまたはインデックス内の項目をクエリします。パーティションキーやソートキーを指定して検索することができます。
+
+今回は ISBN が「`978-1234567890`」の項目を検索してみましょう。
+
+1.  「クエリ」を選択します。
+2.  「`ISBN`」に「`978-1234567890`」と入力します。
+3.  「実行する」をクリックします。
+
+![Alt text](image-18.png)
+
+---
+
+クエリできました！🎉
+
+![Alt text](image-19.png)
 
 ### フィルタ
 
+フィルター機能も試してみましょう。クエリと違い、フィルタはスキャンやクエリの後に行うことができます。
+
+1. スキャンを選択します。
+2. フィルターを以下の通りに設定します。
+   1. 属性名を「`Title`」に
+   2. タイプを「`文字列`」に
+   3. 条件を「`次と等しい：`」に
+   4. 値を「`Sample Book 2`」に
+3. 「実行する」をクリックします。
+
+---
+
+![Alt text](image-20.png)
+
+---
+
+フィルタできました！🎉
+
+![Alt text](image-21.png)
+
 ## 2-5-3. 項目の操作[5]
+
+項目の操作をやってみましょう。
 
 ### 編集
 
+任意の項目を編集してみます。
+
+1. パーティションキーの値をクリックします。
+
+![Alt text](image-22.png)
+
+---
+
+2. 「`PublicationYear`」を「`2023`」に変更します。
+3. 「Save and close」をクリックします。
+
+![Alt text](image-23.png)
+
+---
+
+編集できました！🎉
+
+![Alt text](image-24.png)
+
 ### 複製
 
+次に項目を複製してみます。
+
+1. 任意の項目を選択します。
+2. 「アクション」メニューから「項目の複製」をクリックします。
+
+![Alt text](image-25.png)
+
+---
+
+見慣れてきたフォームが表示されます。プライマリキーであるパーティションキーとソートキーの複合キーは一意である必要があるので変更する必要があります。
+
+3. 「`ISBN`」を「`978-1234567891`」に変更します。
+4. 「`Title`」を「`Sample Book 1 Copy`」に変更します。
+5. 「項目を作成」をクリックします。
+
+---
+
+![Alt text](image-26.png)
+
+---
+
+複製できました！🎉
+
+![Alt text](image-27.png)
+
 ### 削除
+
+最後に項目を削除してみます。
+
+1. 任意の項目を選択します。
+2. 「項目を削除」をクリックします。
+
+![Alt text](image-28.png)
+
+---
+
+3. 「削除」をクリックします。
+
+![Alt text](image-29.png)
+
+---
+
+削除できました！🎉
+
+![Alt text](image-30.png)
 
 ### CSV ダウンロード
 
@@ -609,15 +710,7 @@ https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQ
 
 ## インデックスの追加
 
-## グローバルテーブルの作成
-
 ## バックアップ
-
-## エクスポートおよびストリームの作成
-
-## 追加の設定
-
-# CLI でもやってみよう（早く終わった方向け）
 
 ## 2-6. お片付け[15]
 
