@@ -505,7 +505,7 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
    1. 「`ISBN`」に「`978-1234567890`」と入力します。
    2. 「`Title`」に「`Sample Book 1`」と入力します。
 5. 「新しい属性の追加」を押して、以下の内容を入力します。
-   1. 文字列を追加して属性名に「`Authors`」、値に「`John Doe`」と入力します。
+   1. 文字列を追加して属性名に「`Author`」、値に「`John Doe`」と入力します。
    2. 数値を追加して属性名に「`PublicationYear`」値に「`2022`」と入力します。
 6. 「項目を作成」をクリックします。
 
@@ -520,6 +520,63 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 ![Alt text](image-12.png)
 
 参考：https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/getting-started-step-2.html
+
+---
+
+もう 1 つ項目を追加してみましょう。
+
+1. 「項目を作成」をクリックします。
+
+![Alt text](image-13.png)
+
+---
+
+先ほどはフォームに入力しましたが、今度は DynamoDB JSON を入力してみます。
+
+2. 「JSON ビュー」をクリックします。
+
+![Alt text](image-14.png)
+
+---
+
+3. 以下をコピーします。
+
+```json
+{
+  "ISBN": { "S": "978-0987654321" },
+  "Title": { "S": "Sample Book 2" },
+  "Author": { "S": "Jane Smith" },
+  "PublicationYear": { "N": "2023" }
+}
+```
+
+---
+
+4. 「JSON ビュー」に貼り付けます。
+5. 「項目を作成」をクリックします。
+
+![Alt text](image-15.png)
+
+### 【余談】JSON でも項目を作成できる[5]
+
+DynamoDB では、JSON を使用して項目を作成することもできます。
+
+JSON ビューにした際に「DynamoDB JSON の表示」トグルをクリックしてオフにすると、生の JSON を編集することができます。例えば以下のような JSON を入力して項目を作成することができます。
+
+```json
+{
+  "ISBN": { "S": "978-1111222233" },
+  "Title": { "S": "Sample Book 3" },
+  "Author": { "S": "Alice Brown" },
+  "PublicationYear": { "N": "2020" }
+}
+```
+
+余裕があれば試してみてください。
+
+---
+
+![Alt text](image-16.png)
 
 ## 2-5-2. 項目の検索[5]
 
