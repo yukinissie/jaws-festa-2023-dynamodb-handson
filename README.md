@@ -30,7 +30,7 @@ TODO：最後に画像を配置する。また、適切な見出し番号と所�
 
 @[TOC](目次)
 
-# 1. 座学編[30]
+# 1. 座学編[30]（xx:xx〜xx:xx）
 
 ## 1-1. Amazon DynamoDB の基本[5]
 
@@ -381,7 +381,9 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 - 削除保護を有効にすると、その間はテーブルを削除することができなくなる
 
-# 2. 実習編[60]
+# 休憩[10]（xx:xx〜xx:xx）
+
+# 2. 実習編[60]（xx:xx〜xx:xx）
 
 ## 2-1. DynamoDB サービストップページの開き方[5]
 
@@ -428,28 +430,38 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 ![Alt text](2-3-1-2.png)
 
-### 2-3-2. テーブルを作成する[10]
+### 2-3-2. テーブルを作成する (1/5)
+
+書棚を管理するためのテーブルを作成していきます。
 
 1. 「テーブルの作成」をクリックします。
 
 ![Alt text](2-3-2-1.png)
 
----
+### 2-3-2. テーブルを作成する (2/5)
 
-2. 「テーブル名」に「`jft2023`」と入力します。
-3. 「主キー」に「`id`」と入力します。
+以下の内容を入力します。
 
-![Alt text](2-3-2-2.png)
+1. 「テーブル名」に「`Books`」と入力します。
+2. 「主キー」に「`ISBN`」と入力します。
+3. 「ソートキー」に「`Title`」と入力します。
 
----
+> ISBN（アイエスビーエヌ）は、International Standard Book Number の略称（頭字語）。図書（書籍）および資料の識別用に設けられた国際規格コード（番号システム）の一種
+> 引用：Wikipedia「[ISBN](https://ja.wikipedia.org/wiki/ISBN)」
 
-4. 他の設定を変更せずに一番下までスクロールします。
-5. タグセクションの「新しいタグの追加」をクリックします。
-6. 「キー」に「`Group`」と入力します。
-7. 「値」に「`jft2023-dynamodb-handson`」と入力します。
-8. 「テーブルの作成」をクリックします。
+### 2-3-2. テーブルを作成する (3/5)
 
----
+![Alt text](image-10.png)
+
+### 2-3-2. テーブルを作成する (4/5)
+
+1. 他の設定を変更せずに一番下までスクロールします。
+2. タグセクションの「新しいタグの追加」をクリックします。
+3. 「キー」に「`Group`」と入力します。
+4. 「値」に「`jft2023-dynamodb-handson`」と入力します。
+5. 「テーブルの作成」をクリックします。
+
+### 2-3-2. テーブルを作成する (5/5)
 
 ![Alt text](2-3-2-3.png)
 
@@ -467,22 +479,49 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 テーブルを作成できました！🎉
 
-## 2-5. 項目の探索[15]
+## 2-5-1. 項目の作成[5]
 
-### 2-5-1. 項目の作成[5]
+それでは最初の項目を追加してみましょう。
 
-<TBD>
+1. 先ほど作成したテーブルの名前をクリックします。
 
-```
-- 属性について
-  - 名前
-  - 値
-  - タイプ
-```
+![Alt text](image-6.png)
+
+---
+
+2. 「テーブルアイテムの探索」をクリックします。
+
+![Alt text](image-7.png)
+
+---
+
+3. 下にスクロールして、「項目を作成」をクリックします。
+
+![Alt text](image-8.png)
+
+---
+
+4. 属性名と値を埋めていきます。内容は以下の通りです。
+   1. 「`ISBN`」に「`978-1234567890`」と入力します。
+   2. 「`Title`」に「`Sample Book 1`」と入力します。
+5. 「新しい属性の追加」を押して、以下の内容を入力します。
+   1. 文字列を追加して属性名に「`Authors`」、値に「`John Doe`」と入力します。
+   2. 数値を追加して属性名に「`PublicationYear`」値に「`2022`」と入力します。
+6. 「項目を作成」をクリックします。
+
+---
+
+![Alt text](image-11.png)
+
+---
+
+項目が追加されました！🎉
+
+![Alt text](image-12.png)
 
 参考：https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/getting-started-step-2.html
 
-### 2-5-2. 項目の検索[5]
+## 2-5-2. 項目の検索[5]
 
 ＜ TBD ＞
 
@@ -492,21 +531,21 @@ https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQ
 https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQL.ReadData.Query.html
 https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQL.ReadData.Scan.html
 
-#### スキャン
+### スキャン
 
-#### クエリ
+### クエリ
 
-#### フィルタ
+### フィルタ
 
-### 2-5-3. 項目の操作[5]
+## 2-5-3. 項目の操作[5]
 
-#### 編集
+### 編集
 
-#### 複製
+### 複製
 
-#### 削除
+### 削除
 
-#### CSV ダウンロード
+### CSV ダウンロード
 
 - 選択した項目をダウンロード
 - 検索した結果をダウンロード
@@ -520,6 +559,8 @@ https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/SQLtoNoSQ
 ## エクスポートおよびストリームの作成
 
 ## 追加の設定
+
+# CLI でもやってみよう（早く終わった方向け）
 
 ## 2-6. お片付け[15]
 
@@ -540,6 +581,8 @@ DynamoDB には予約語と特殊文字があります。
   - 式でこれらの名前を使用するたびに、プレースホルダー変数を定義する必要がある
   - 詳細は：「[DynamoDB の式の属性名](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html)」
   - ドキュメントによっては予約語を「使用しないでください」と書かれている
+
+## DAX クラスター
 
 ## DynamoDB テーブルのデータモデリング
 
