@@ -1,7 +1,3 @@
-> 🚧 只今誠意作成中です、しばらくお待ちください。。🚧
-
-TODO：最後に画像を配置する。また、適切な見出し番号と所要時間を付け直す。
-
 # はじめに
 
 この資料は JAWS FESTA 2023 Kyushu で行われるハンズオンために書かれました。
@@ -9,8 +5,6 @@ TODO：最後に画像を配置する。また、適切な見出し番号と所�
 イベントページは[こちら](https://jft2023.jaws-ug.jp/)。
 
 手を動かしながら Amazon DynamoDB の基本を学ぶことができます。
-
-この資料のマスタは[GitHub](https://github.com/yukinissie/jaws-festa-2023-dynamodb-handson/blob/main/README.md)にあります。
 
 # 自己紹介
 
@@ -32,18 +26,18 @@ TODO：最後に画像を配置する。また、適切な見出し番号と所�
 
 # 1. 座学編[30]（xx:xx〜xx:xx）
 
-## 1-1. Amazon DynamoDB の基本[5]
+## 1-1. Amazon DynamoDB の基本
 
 Amazon DynamoDB(以下、DynamoDB) は高速で予測可能なパフォーマンスやシームレスなスケーラビリティを提供するフルマネージドでサーバーレスの key-value NoSQL データベースサービスです。
 
-### 1-1-1. DynamoDB の利点[5]
+### 1-1-1. DynamoDB の利点
 
 以下のような利点があります。
 
 - 分散データベースの運用やスケーリングにかかる管理負荷を軽減
 - ハードウェアのプロビジョニング、セットアップと設定、レプリケーション、ソフトウェアのパッチ適用、クラスタのスケーリングなどを心配する必要がなくなる
 
-### 1-1-2. DynamoDB の特徴[5]
+### 1-1-2. DynamoDB の特徴
 
 DynamoDB では以下のような特徴があります。
 
@@ -53,7 +47,7 @@ DynamoDB では以下のような特徴があります。
 - 他にもたくさんの特徴があります
   - 詳細：AWS 公式サイト「[Amazon DynamoDB の特徴](https://aws.amazon.com/jp/dynamodb/features/)」
 
-### 1-1-3. DynamoDB の機能[5]
+### 1-1-3. DynamoDB の機能
 
 DynamoDB では以下のような機能が提供されています。
 
@@ -66,14 +60,14 @@ DynamoDB では以下のような機能が提供されています。
 - 期限切れの項目をテーブルから自動的に削除する機能
   - 詳細：AWS 公式ドキュメント 「[DynamoDB の有効期限 (TTL) を使用して項目を期限切れにする](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/TTL.html)」
 
-### 1-1-4. DynamoDB の高い可用性と耐久性[5]
+### 1-1-4. DynamoDB の高い可用性と耐久性
 
 - 一貫性のある高速なパフォーマンスを維持しながら、スループットとストレージ要件を処理するために十分な数のサーバーにテーブルのデータとトラフィックを自動的に分散する
 - すべてのデータはソリッドステートディスク(SSD)に保存され、AWS リージョン内の複数の [アベイラビリティーゾーン（AZ）](https://docs.aws.amazon.com/ja_jp/AWSEC2/latest/UserGuide/using-regions-availability-zones.html) に自動的にレプリケートされ、ビルトインの高可用性とデータの耐久性を提供する
 - グローバルテーブルを使用すると、AWS リージョン間で DynamoDB のテーブルを同期させることが可能
   - 詳細：AWS 公式ドキュメント「[グローバルテーブル – DynamoDB の複数リージョンレプリケーション](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/GlobalTables.html)」
 
-### 1-1-5. ユースケース[5]
+### 1-1-5. ユースケース
 
 以下のような１秒間に数百万回のリクエストを処理する必要がある業界で使われています。
 
@@ -86,7 +80,7 @@ DynamoDB では以下のような機能が提供されています。
 
 詳細は AWS 公式サイト「[Amazon DynamoDB](https://aws.amazon.com/jp/dynamodb/)」のユースケースセクションをご覧ください。
 
-### 1-1-6. 料金 [5] 🚧
+### 1-1-6. 料金
 
 DynamoDB の課金対象は大きく分けて以下の 2 つです。
 
@@ -95,11 +89,15 @@ DynamoDB の課金対象は大きく分けて以下の 2 つです。
 
 さらに 1. には「オンデマンド」と「プロビジョニング」という 2 種類のキャパシティモードがあり、それぞれのモードにおけるテーブルの読み書き処理について別個の請求オプションがあります。
 
+詳しくは AWS 公式サイト「[Amazon DynamoDB 料金](https://aws.amazon.com/jp/dynamodb/pricing/)」をご覧ください。
+
 #### 無料利用枠（無期限無料）
 
-### 1-1-7. 公式ドキュメント[5]
+Amazon DynamoDB には無期限の無料利用枠があります。
 
-安心安全 AWS 公式ドキュメントのリンクはこちら ↓
+### 1-1-7. 公式ドキュメント
+
+安心安全 AWS 公式ドキュメントのリンクはこちらです ↓
 
 - https://docs.aws.amazon.com/ja_jp/dynamodb/
 
@@ -111,7 +109,7 @@ DynamoDB の課金対象は大きく分けて以下の 2 つです。
 
 今回のハンズオンは公式ドキュメントの内容を元に作成しています。
 
-### 1-1-8. 学習リソース[5]
+### 1-1-8. 学習リソース
 
 - [公式チュートリアル](https://aws.amazon.com/jp/dynamodb/getting-started/?nc1=h_ls)
 - [API リファレンス](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/APIReference/Welcome.html)
@@ -204,7 +202,7 @@ DynamoDB の課金対象は大きく分けて以下の 2 つです。
 
 それぞれの用語について説明していきます。
 
-#### テーブル名[1.5]
+#### テーブル名
 
 その名の通りテーブルの名前です。
 
@@ -225,7 +223,7 @@ DynamoDB の課金対象は大きく分けて以下の 2 つです。
 
 詳細については、AWS 公式ドキュメント「[Amazon DynamoDB でサポートされるデータ型と命名規則](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html)」を参照してください。
 
-#### 状態[1]
+#### 状態
 
 現在のテーブルの状態について知ることができます。AWS SDK for Java V2 では以下のような状態が定義されています。（一部抜粋）
 
@@ -375,7 +373,7 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 参考：AWS 公式ドキュメント「[テーブルクラス](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/HowItWorks.TableClasses.html)」
 
-#### 削除保護[1]
+#### 削除保護
 
 削除保護はテーブルの削除を防ぐために使用される機能です。
 
@@ -389,20 +387,20 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 1. AWS コンソールにログインして、ヘッダーにある検索窓をクリックします。
 
-![Alt text](image.png)
+![image](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/5155dba0-136a-42ea-8c43-ddedd9e54f14.png)
 
 ---
 
 2. 検索窓に「DynamoDB」と入力します。
 3. 検索結果の中から「DynamoDB」をクリックします。
 
-![Alt text](image-1.png)
+![image-1](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/a5fe077b-5b2b-4222-b810-205f87bd3181.png)
 
 ---
 
 4. DynamoDB サービスのトップページが開きます。
 
-![Alt text](image-5.png)
+![image-5](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/42734ab1-804c-4de0-81e9-313d4682ff70.png)
 
 トップページには座学編で説明した内容が書かれています。
 
@@ -412,23 +410,23 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 2. 検索結果横の星マークをクリックします。
 3. ブックマークしたい AWS サービスがブックマークバーに追加されます。
 
-![Alt text](image-4.png)
+![image-4](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/4a3eb7b1-285f-4d22-aa14-c0cde46963dd.png)
 
-## 2-3. テーブルの作成[15]
+## 2-3. テーブルの作成
 
 では早速、テーブルを作成していきましょう！
 
-### 2-3-1. テーブル一覧を表示する[1]
+### 2-3-1. テーブル一覧を表示する
 
 1. DynamoDB サービスページの左にあるメニュー内の「テーブル」をクリックします。
 
-![Alt text](2-3-1-1.png)
+![2-3-1-1](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/be8a4ac5-1acf-46aa-a6cd-416a7c8942fc.png)
 
 ---
 
 2. そうすることでテーブル一覧を表示することができます。
 
-![Alt text](2-3-1-2.png)
+![2-3-1-2](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/c9cb7f9b-7e9b-4141-a0dd-830c9c89ba80.png)
 
 ### 2-3-2. テーブルを作成する (1/5)
 
@@ -436,7 +434,7 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 1. 「テーブルの作成」をクリックします。
 
-![Alt text](2-3-2-1.png)
+![2-3-2-1](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/60aa7d51-2a77-4870-892e-a05e896beb9d.png)
 
 ### 2-3-2. テーブルを作成する (2/5)
 
@@ -451,7 +449,7 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 ### 2-3-2. テーブルを作成する (3/5)
 
-![Alt text](image-10.png)
+![image-10](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/88cfedd9-0760-4079-9717-5ab72ec187c7.png)
 
 ### 2-3-2. テーブルを作成する (4/5)
 
@@ -463,19 +461,19 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 ### 2-3-2. テーブルを作成する (5/5)
 
-![Alt text](2-3-2-3.png)
+![2-3-2-3](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/10c6632d-503b-410b-9c09-16c80876238d.png)
 
 ### 2-3-3. テーブルの作成状況を確認する[1]
 
 「テーブルの作成」をクリックするとテーブル一覧が表示され、自動的に作成処理が開始されます。テーブルの作成にはしばらく時間がかかりますが、テーブルが作成中かどうかの状態などを一覧から確認できます。通常、1 分程度で完了します。
 
-![Alt text](image-3.png)
+![image-3](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/27c0421e-2722-4584-b302-e46e349db551.png)
 
 ### 2-3-4. テーブルの作成完了を確認する[1]
 
 作成が完了すると以下のような画面になります。
 
-![Alt text](2-3-2-4.png)
+![2-3-2-4](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/4a3423bd-edc5-463f-b3ff-94021088a2b9.png)
 
 テーブルを作成できました！🎉
 
@@ -485,19 +483,19 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 1. 先ほど作成したテーブルの名前をクリックします。
 
-![Alt text](image-6.png)
+![image-6](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/84d20499-ce3b-4b1a-8f84-b0960a9edaad.png)
 
 ---
 
 2. 「テーブルアイテムの探索」をクリックします。
 
-![Alt text](image-7.png)
+![image-7](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/4a15153e-e913-46e4-98bd-d0b0b6a4837d.png)
 
 ---
 
 3. 下にスクロールして、「項目を作成」をクリックします。
 
-![Alt text](image-8.png)
+![image-8](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/2511a3e8-aebd-41ac-a32f-a6c87245917e.png)
 
 ---
 
@@ -511,13 +509,13 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 ---
 
-![Alt text](image-11.png)
+![image-11](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/52032dc6-81ed-4028-aef2-d66fe6d66d35.png)
 
 ---
 
 項目が追加されました！🎉
 
-![Alt text](image-12.png)
+![image-12](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/1d215b1f-94ec-4abc-a6e9-0a9f7315fb17.png)
 
 参考：https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/getting-started-step-2.html
 
@@ -527,7 +525,7 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 1. 「項目を作成」をクリックします。
 
-![Alt text](image-13.png)
+![image-13](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/345a7095-c5f9-438a-970a-c5e9941a34d8.png)
 
 ---
 
@@ -535,7 +533,7 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 
 2. 「JSON ビュー」をクリックします。
 
-![Alt text](image-14.png)
+![image-14](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/c5d06bc3-235e-4d49-9897-97c71a756b98.png)
 
 ---
 
@@ -555,7 +553,7 @@ DynamoDB では、次の 2 種類のインデックスをサポートしてい�
 4. 「JSON ビュー」に貼り付けます。
 5. 「項目を作成」をクリックします。
 
-![Alt text](image-15.png)
+![image-15](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/144d8b68-cc74-4bd6-baa3-644d2c5bc907.png)
 
 ### 【余談】JSON でも項目を作成できる[5]
 
@@ -576,7 +574,7 @@ JSON ビューにした際に「DynamoDB JSON の表示」トグルをクリッ�
 
 ---
 
-![Alt text](image-16.png)
+![image-16](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/1202a314-8049-4f0a-b066-214e8b471e12.png)
 
 ## 2-5-2. 項目の検索[5]
 
@@ -588,7 +586,7 @@ JSON ビューにした際に「DynamoDB JSON の表示」トグルをクリッ�
 
 実は項目作成後に見た「返された項目」はの内容はスキャンの結果です。
 
-![Alt text](image-17.png)
+![image-17](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/9b4210bd-b69e-42da-96ee-ca78182d3de0.png)
 
 ### クエリ
 
@@ -600,13 +598,13 @@ JSON ビューにした際に「DynamoDB JSON の表示」トグルをクリッ�
 2.  「`ISBN`」に「`978-1234567890`」と入力します。
 3.  「実行する」をクリックします。
 
-![Alt text](image-18.png)
+![image-18](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/55d22abf-5b45-47ec-91cd-f2fa4f89aa6b.png)
 
 ---
 
 クエリできました！🎉
 
-![Alt text](image-19.png)
+![image-19](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/6f04520e-c55f-4df3-a6fa-06092f743d52.png)
 
 ### フィルタ
 
@@ -622,13 +620,13 @@ JSON ビューにした際に「DynamoDB JSON の表示」トグルをクリッ�
 
 ---
 
-![Alt text](image-20.png)
+![image-20](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/506669b5-2b34-4f41-ae42-58304fa05ae6.png)
 
 ---
 
 フィルタできました！🎉
 
-![Alt text](image-21.png)
+![image-21](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/8d5495b8-c48b-44ea-bf6c-55be5b84abfa.png)
 
 ## 2-5-3. 項目の操作[5]
 
@@ -640,20 +638,20 @@ JSON ビューにした際に「DynamoDB JSON の表示」トグルをクリッ�
 
 1. パーティションキーの値をクリックします。
 
-![Alt text](image-22.png)
+![image-22](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/8938aaf9-7e23-40c5-ab27-3a1eed1137f9.png)
 
 ---
 
 2. 「`PublicationYear`」を「`2023`」に変更します。
 3. 「Save and close」をクリックします。
 
-![Alt text](image-23.png)
+![image-23](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/f5ad372a-af4e-4113-bbc8-6feb89b72c0c.png)
 
 ---
 
 編集できました！🎉
 
-![Alt text](image-24.png)
+![image-24](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/69917e41-3991-4ce9-b6ea-7df8aaae46be.png)
 
 ### 複製
 
@@ -662,7 +660,7 @@ JSON ビューにした際に「DynamoDB JSON の表示」トグルをクリッ�
 1. 任意の項目を選択します。
 2. 「アクション」メニューから「項目の複製」をクリックします。
 
-![Alt text](image-25.png)
+![image-25](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/f8f17048-7f26-42c8-8eba-3290f969a506.png)
 
 ---
 
@@ -674,13 +672,13 @@ JSON ビューにした際に「DynamoDB JSON の表示」トグルをクリッ�
 
 ---
 
-![Alt text](image-26.png)
+![image-26](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/3dc79454-c6ab-41cc-9763-3b88539d9782.png)
 
 ---
 
 複製できました！🎉
 
-![Alt text](image-27.png)
+![image-27](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/bebadabb-3f49-4211-91fc-bf7e8b9c1c08.png)
 
 ### 削除
 
@@ -689,54 +687,128 @@ JSON ビューにした際に「DynamoDB JSON の表示」トグルをクリッ�
 1. 任意の項目を選択します。
 2. 「項目を削除」をクリックします。
 
-![Alt text](image-28.png)
+![image-28](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/5f0568d7-b6d8-42bd-b526-4106780b1849.png)
 
 ---
 
 3. 「削除」をクリックします。
 
-![Alt text](image-29.png)
+![image-29](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/52203266-c547-46dd-b396-e9e5e5f6d22f.png)
 
 ---
 
 削除できました！🎉
 
-![Alt text](image-30.png)
+![image-30](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/a81f662b-66ac-4d1d-937a-a3a56179022a.png)
 
 ### CSV ダウンロード
 
+テーブルアイテムを CSV ダウンロードしてみましょう。
+
 - 選択した項目をダウンロード
+  - ダウンロードしたい項目にチェックボックスをつけます
+  - 「アクション」を押下して「選択した項目を CSV にダウンロード」を押します。
+  - 選択した項目のみダウンロードされます。
+
+---
+
+![⑤](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/1dd4789d-9264-4a4a-a4e8-016c93181604.png)
+
+---
+
 - 検索した結果をダウンロード
+  - 「項目のスキャンまたはクエリ」にて次のように設定して「実行」を押して検索します。
+    - 「クエリ」
+    - パーティションキー「978-1234567890」
+  - 返された項目にてチェックボックスをつけずに
+    「アクション」を押下して「結果を CSV ダウンロードする」
+  - 検索された結果がダウンロードされます。
+
+---
+
+![⑥](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/f3b75cbf-0f04-42fc-8c3d-4e487b6d6e9b.png)
 
 ## インデックスの追加
 
+ここではグローバルセカンダリインデックスの追加とその動きを見ていきましょう。
+
+1. `インデックス`タブを開く
+   ![[9005502645341738] スクリーンショット 2023-10-07 1.23.07](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/1fa98e49-fcdf-48e7-8bec-4e7946f4bbdb.png)
+1. `インデックスの作成`をクリックする
+   ![[9005502645148844] スクリーンショット 2023-10-07 1.26.17](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/484e9933-30c9-445f-afbf-0e5201e20bda.png)
+1. インデックスの詳細に必要な値を入力する
+   - パーティションキー: `Title`
+   - インデックス名: `Title-All-Index`
+   - ![[9005502642510468] スクリーンショット 2023-10-07 2.10.16](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/1f8024a2-d8b7-4325-972f-a12292438888.png)
+1. インデックスキャパシティーはデフォルト値のまま
+   ![[9005502644969926] スクリーンショット 2023-10-07 1.29.16](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/1e0f1e54-52a1-42d7-a736-96cca1f33a30.png)
+1. 属性の射影もデフォルト値のまま
+   ![[9005502644904375] スクリーンショット 2023-10-07 1.30.02](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/492b3248-a112-4268-af42-c5aa543f07c1.png)
+1. `インデックスの作成`をクリックする
+   ![[9005502644562107] スクリーンショット 2023-10-07 1.36.06](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/7c050d20-1562-4b85-8c13-8146959e3641.png)
+1. 状態が`アクティブ`になるまで待つ
+   ![[9005502644391946] スクリーンショット 2023-10-07 1.38.54](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/21f13b53-6cc8-4110-aa9d-ed90bc558444.png)
+   ![[9005502643873292] スクリーンショット 2023-10-07 1.47.40](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/2f78d726-a1bc-45b9-96c9-2cf73324c001.png)
+1. Item を追加する
+   - ISBN: `97848840230926`
+   - Title: `海の底`
+   - Author: `有川浩`
+1. Item を追加する
+   - ISBN: `9784043898022`
+   - Title: `海の底`
+   - Author: `有川浩`
+1. クエリでインデックスを指定して検索する
+   - クエリ
+   - テーブルまたはインデックスを選択: `インデックス - Title-All-Index`
+   - Title (パーティションキー): `海の底`
+   - ![[9005502642996970] スクリーンショット 2023-10-07 2.02.07](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/1822a73f-df6f-489d-a751-93cfe40d4fbd.png)
+
+2 件、タイトルで検索ができました。
+グローバルセカンダリインデックスは、パーティションキーを指定して一意に決まらない唯一のインデックスなのです。
+
 ## バックアップ
+
+テーブルのバックアップ操作をやってみましょう。
+
+### バックアップの作成
+
+バックアップのタブを選択します。
+
+![①](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/a92ae976-6d8e-4059-84c7-b663e43ed20b.png)
+
+1. バックアップの作成を選択します。
+2. オンデマンドバックアップを作成を選択します。
+   1. ソーステーブルに「Books」
+   2. バックアップ名に「Books-2023-10-7-jaws-festa」
+3. 「バックアップの作成」をクリックします。
+
+---
+
+## ![②](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/e716d9e6-bfc9-460a-84e0-c533e8f8bd0d.png)
+
+バックアップできました！🎉
+
+### バックアップの復元
+
+1. 「Books-2023-10-7-jaws-festa」のチェックボックスを選択します。
+2. 「復元」をクリックします。
+3. 「セカンダリインデックス」は「テーブル全体の復元」を選択します。
+4. 「復元先 AWS リージョン」は「同じリージョン (東京)」を選択します。
+5. 「保管中の暗号化の設定」は「Amazon DynamoDB が所有」を選択します。
+6. 「復元」をクリックします。
+
+---
+
+![③](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/20c9e526-d253-47df-aea8-ff7dff11e28e.png)
+
+---
+
+テーブルの復元にはしばらく時間がかかりますが、テーブルが復元中かどうかの状態などを一覧から確認できます。今回のデータ量だと、5~10 分程度で完了します。
+
+復元出来ました！🎉
+
+![④](https://mimemo.s3-ap-northeast-1.amazonaws.com/attachment/78920e3b-02a8-4c47-a46c-d909cc0d9c8f.png)
 
 ## 2-6. お片付け[15]
 
 # 3. 終わりに[5]
-
----
-
-# その他用語集
-
-## 予約語と特殊文字
-
-DynamoDB には予約語と特殊文字があります。
-
-- 予約語の例： `INSERT` や `DELETE`
-  - 詳細は：「[DynamoDB の予約語](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/ReservedWords.html)」
-- 特殊文字の例： `#` （ハッシュ）や `:` （コロン）
-- 命名目的でこれらの予約語と特殊文字を使用することができるが、非推奨
-  - 式でこれらの名前を使用するたびに、プレースホルダー変数を定義する必要がある
-  - 詳細は：「[DynamoDB の式の属性名](https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/Expressions.ExpressionAttributeNames.html)」
-  - ドキュメントによっては予約語を「使用しないでください」と書かれている
-
-## DAX クラスター
-
-## DynamoDB テーブルのデータモデリング
-
-設計の話
-<TBD>
-
-https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/data-modeling.html
